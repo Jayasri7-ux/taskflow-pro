@@ -38,6 +38,7 @@ exports.login = async (req, res) => {
         const user = await User.findOne({ email }).select("+password");
 
         if (!user) {
+            console.error("LOGIN FAILED: User not found in database ->", email);
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
