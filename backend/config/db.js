@@ -5,7 +5,10 @@ const connectDB = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("TaskFlow-Pro MongoDB Connected ✅");
     } catch (error) {
-        console.error("MongoDB Connection Failed ❌", error.message);
+        console.error("MongoDB Connection Failed ❌");
+        console.error("ERROR NAME:", error.name);
+        console.error("ERROR MESSAGE:", error.message);
+        console.error("FULL ERROR:", error);
         process.exit(1);
     }
 };

@@ -42,14 +42,18 @@ exports.login = async (req, res) => {
         }
 
         // Check if password matches
+        console.log("Found user, checking password...");
         const isMatch = await user.matchPassword(password);
 
         if (!isMatch) {
+            console.warn("Password mismatch for:", email);
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
+        console.log("Password OK, sending token...");
         sendTokenResponse(user, 200, res);
     } catch (err) {
+        console.error("LOGIN CONTROLLER ERROR:", err);
         res.status(500).json({ success: false, message: err.message });
     }
 };

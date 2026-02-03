@@ -7,6 +7,10 @@ const connectDB = require("./config/db");
 // Load env vars
 dotenv.config();
 
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("MONGO_URI PRESENT:", !!process.env.MONGO_URI);
+console.log("JWT_SECRET PRESENT:", !!process.env.JWT_SECRET);
+
 // Connect to database
 connectDB();
 
@@ -40,10 +44,12 @@ app.get("/", (req, res) => {
 
 // Centralized Error Handler
 app.use((err, req, res, next) => {
+    console.error("!!!! SERVER ERROR !!!!");
     console.error(err.stack);
     res.status(err.status || 500).json({
         success: false,
         message: err.message || "Server Error",
+        stack: process.env.NODE_ENV === "development" ? err.stack : undefined
     });
 });
 
