@@ -74,10 +74,7 @@ MONGO_URI=mongodb://127.0.0.1:27017/taskflow-pro
 JWT_SECRET=your_secret_key
 NODE_ENV=development
 
-# Seed the Database (Crucial for initial credentials)
-node seed.js
-
-# Start the Backend
+# Start the Backend (Database seeds automatically if empty)
 npm run dev
 ```
 

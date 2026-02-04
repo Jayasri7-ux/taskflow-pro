@@ -12,7 +12,10 @@ console.log("MONGO_URI PRESENT:", !!process.env.MONGO_URI);
 console.log("JWT_SECRET PRESENT:", !!process.env.JWT_SECRET);
 
 // Connect to database
-connectDB();
+connectDB().then(() => {
+    const seedOnStartup = require("./utils/seeder");
+    seedOnStartup();
+});
 
 const app = express();
 
