@@ -1,6 +1,6 @@
 # TaskFlow-Pro – Role-Based Project & Task Management System
 
-**Full Stack MERN Intern Assessment - Blackbucks**
+**Full Stack MERN Intern Assessment**
 
 TaskFlow-Pro is a production-ready Role-Based Project & Task Management System designed to streamline collaboration between Admins, Managers, and Users. It features secure authentication, role-based access control, and dynamic dashboards.
 
