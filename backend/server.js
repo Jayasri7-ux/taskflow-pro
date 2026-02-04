@@ -19,9 +19,20 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
+
+// Request Logger
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+        const logBody = { ...req.body };
+        if (logBody.password) logBody.password = "****";
+        console.log(`Body:`, logBody);
+    }
+    next();
+});
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://127.0.0.1:5173", "https://taskflow-pro-coral.vercel.app"],
+        origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
         credentials: true,
     })
 );

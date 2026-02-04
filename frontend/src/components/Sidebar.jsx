@@ -29,7 +29,7 @@ const Sidebar = () => {
             title: "My Tasks",
             path: "/tasks",
             icon: <ListTodo size={20} />,
-            roles: ["User"],
+            roles: ["Admin", "Manager", "User"],
         },
     ];
 
@@ -46,8 +46,8 @@ const Sidebar = () => {
                         key={item.path}
                         to={item.path}
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${location.pathname === item.path
-                                ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
-                                : "text-gray-400 hover:bg-gray-700 hover:text-white"
+                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                            : "text-gray-400 hover:bg-gray-700 hover:text-white"
                             }`}
                     >
                         {item.icon}

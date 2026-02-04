@@ -54,8 +54,9 @@ exports.login = async (req, res) => {
         console.log("Password OK, sending token...");
         sendTokenResponse(user, 200, res);
     } catch (err) {
-        console.error("LOGIN CONTROLLER ERROR:", err);
-        res.status(500).json({ success: false, message: err.message });
+        console.error("!!!! LOGIN CONTROLLER ERROR !!!!");
+        console.error(err);
+        res.status(500).json({ success: false, message: `SERVER ERROR: ${err.message}` });
     }
 };
 

@@ -12,6 +12,9 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import UserDashboard from "./pages/UserDashboard";
+import Users from "./pages/Users";
+import Projects from "./pages/Projects";
+import Tasks from "./pages/Tasks";
 
 function App() {
     const dispatch = useDispatch();
@@ -38,24 +41,24 @@ function App() {
                         {/* Admin Routes */}
                         <Route element={<PrivateRoute roles={["Admin"]} />}>
                             <Route path="/admin" element={<AdminDashboard />} />
-                            <Route path="/admin/users" element={<div>User Management (TBD)</div>} />
+                            <Route path="/admin/users" element={<Users />} />
                         </Route>
 
-                        {/* Manager Routes */}
-                        <Route element={<PrivateRoute roles={["Manager"]} />}>
+                        {/* General Management Routes (Admin & Manager) */}
+                        <Route element={<PrivateRoute roles={["Admin", "Manager"]} />}>
                             <Route path="/manager" element={<ManagerDashboard />} />
-                            <Route path="/projects" element={<div>Project Management (TBD)</div>} />
+                            <Route path="/projects" element={<Projects />} />
                         </Route>
 
-                        {/* User Routes */}
-                        <Route element={<PrivateRoute roles={["User"]} />}>
+                        {/* User Features (All roles can see their tasks) */}
+                        <Route element={<PrivateRoute roles={["Admin", "Manager", "User"]} />}>
                             <Route path="/user" element={<UserDashboard />} />
-                            <Route path="/tasks" element={<div>My Tasks (TBD)</div>} />
+                            <Route path="/tasks" element={<Tasks />} />
                         </Route>
                     </Route>
                 </Route>
 
-                <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
+                <Route path="/unauthorized" element={<div className="min-h-screen flex items-center justify-center text-white text-2xl font-bold bg-gray-950">Unauthorized Access</div>} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </Router>

@@ -1,107 +1,94 @@
-# TaskFlow – Role-Based Project & Task Management System
+# TaskFlow-Pro – Role-Based Project & Task Management System
 
-**Full Stack MERN Intern Assessment 
+**Full Stack MERN Intern Assessment - Blackbucks**
 
-TaskFlow is a production-ready Role-Based Project & Task Management System designed to streamline collaboration between Admins, Managers, and Users. It features secure authentication, role-based access control, and dynamic dashboards.
+TaskFlow-Pro is a production-ready Role-Based Project & Task Management System designed to streamline collaboration between Admins, Managers, and Users. It features secure authentication, role-based access control, and dynamic dashboards.
 
-## 🚀 Live Demo
-**[Insert Your Deployed Link Here]**
+---
+
+## 🚀 Recent Improvements & Fixes
+
+This project underwent a comprehensive debugging and feature completion phase:
+
+-   **Authentication Fix**: Resolved a critical "Invalid Credentials" bug where passwords were being double-hashed during save operations.
+-   **Connectivity Fix**: Implemented a **Vite Proxy** and updated **CORS** configurations to resolve persistent "Network Errors" during local development.
+-   **Feature Completion**: Replaced all "TBD" placeholders with fully functional pages:
+    -   **Users Management**: Full CRUD for Admins.
+    -   **Project Management**: Creation and oversight for Admins and Managers.
+    -   **Task Management**: Global tracking for Managers/Admins and status updates for Users.
+-   **Permission Logic**: Updated `App.jsx` and backend routes to ensure proper Role-Based Access Control (RBAC), specifically granting Admins access to project management.
 
 ---
 
 ## 🛠 Tech Stack
 
 ### Frontend
-*   **React.js**: specialized with Vite for performance.
-*   **Redux Toolkit**: Global state management (Authentication & User Data).
-*   **Tailwind CSS**: Modern, responsive styling.
-*   **React Router**: Role-based navigation and protected routes.
+*   **React.js**: Powered by Vite for high-performance development.
+*   **Redux Toolkit**: Centralized state management for Authentication and User Data.
+*   **Tailwind CSS**: Modern, responsive design system.
+*   **Lucide React**: Premium iconography.
 
 ### Backend
-*   **Node.js & Express.js**: RESTful API architecture.
-*   **MongoDB**: NoSQL database for flexible data modeling.
+*   **Node.js & Express.js**: Scalable REST API architecture.
+*   **MongoDB & Mongoose**: Flexible data modeling with secure schemas.
+*   **Bcrypt.js**: Industry-standard password hashing.
 *   **JWT (JSON Web Tokens)**: Secure, HTTP-only cookie-based authentication.
 
 ---
 
-## ✨ Key Features
+## 🔑 Demo Credentials
 
-### 1. Authentication & Authorization
-*   **Secure Login**: Email & Password authentication using Bcrypt & JWT.
-*   **Role-Based Access**: Strict separation of concerns (Admin, Manager, User).
-*   **Protected Routes**: Middleware ensures users only access authorized resources.
+Use these seeded credentials to test the different role-based views:
 
-### 2. Role-Based Dashboards
-
-#### 🛡 Admin Dashboard
-*   **User Management**: View all users, Delete users, and Update roles (Promote/Demote).
-*   **System Overview**: View all projects across the organization.
-*   **User Creation**: Manually onboard new users.
-
-#### 💼 Manager Dashboard
-*   **Project Lifecycle**: Create, Edit, and Delete projects.
-*   **Task Management**: Create tasks within projects and assign them to team members.
-*   **Team Oversight**: View project members and progress.
-
-#### 👤 User Dashboard
-*   **Task Tracking**: View assigned tasks with Priority and Deadlines.
-*   **Status Updates**: Move tasks from "Todo" → "In Progress" → "Done".
-*   **Project Visibility**: View details of projects they are part of.
+| Role | Email | Password | Primary Permissions |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin@taskflow.com` | `taskflow123` | Manage Users, Manage Projects, Manage Tasks |
+| **Manager** | `manager@taskflow.com` | `manager123` | Create Projects, Assign Tasks |
+| **User** | `user@taskflow.com` | `user123` | View My Tasks, Update Task Status |
 
 ---
 
-## ⚙️ Local Setup Instructions
+## ⚙️ Start-to-End Setup Instructions
 
-### Prerequisites
-*   Node.js (v18+)
-*   MongoDB (Local or Atlas URI)
+### 1. Prerequisites
+- **Node.js** (v18+)
+- **MongoDB** (Local instance or Atlas URI)
 
-### 1. Clone the Repository
+### 2. Backend Configuration
 ```bash
-git clone <repository_url>
-cd taskflow-pro
-```
-
-### 2. Backend Setup
-```bash
+# Navigate to backend
 cd backend
+
+# Install dependencies
 npm install
 
-# Create .env file
-echo "PORT=5050" > .env
-echo "MONGO_URI=mongodb://127.0.0.1:27017/taskflow-pro" >> .env
-echo "JWT_SECRET=your_super_secret_key" >> .env
-echo "NODE_ENV=development" >> .env
+# Create/Configure .env file
+# Ensure the following keys are present:
+PORT=5050
+MONGO_URI=mongodb://127.0.0.1:27017/taskflow-pro
+JWT_SECRET=your_secret_key
+NODE_ENV=development
 
-# Seed Database (Creates default Admin/Manager/User)
+# Seed the Database (Crucial for initial credentials)
 node seed.js
 
-# Start Server
+# Start the Backend
 npm run dev
 ```
-*Backend runs on `http://localhost:5050`*
 
-### 3. Frontend Setup
+### 3. Frontend Configuration
 ```bash
-cd ../frontend-pro
+# Navigate to frontend
+cd ../frontend
+
+# Install dependencies
 npm install
 
-# Start React App
+# Start the Frontend
 npm run dev
 ```
-*Frontend runs on `http://localhost:5173`*
 
----
-
-## 🔑 Demo Credentials (Role-Based)
-
-Use these credentials to test the different roles:
-
-| Role | Email | Password | Permissions |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@taskflow.com` | `taskflow123` | Manage Users, View All Projects |
-| **Manager** | `manager@taskflow.com` | `manager123` | Manage Projects, Assign Tasks |
-| **User** | `user@taskflow.com` | `user123` | View Tasks, Update Status |
+The application will be accessible at `http://localhost:5173`. The Vite proxy will automatically route `/api` calls to the backend at `http://localhost:5050`.
 
 ---
 
@@ -109,20 +96,19 @@ Use these credentials to test the different roles:
 ```
 taskflow-pro/
 ├── backend/                # Node.js/Express API
-│   ├── config/             # DB Connection
-│   ├── controllers/        # Route Logic
-│   ├── middleware/         # Auth & Error Handling
+│   ├── config/             # Database connection (db.js)
+│   ├── controllers/        # Business logic (auth, project, task)
+│   ├── middleware/         # Auth (protect/authorize) & Error handling
 │   ├── models/             # Mongoose Schemas (User, Project, Task)
-│   └── routes/             # API Routes
-└── frontend-pro/           # React Client
+│   └── routes/             # API Endpoint definitions
+└── frontend/               # Vite/React Client
     ├── src/
-    │   ├── api/            # Axios Setup
-    │   ├── app/            # Redux Store
-    │   ├── components/     # Reusable UI (Navbar, Sidebar)
-    │   ├── features/       # Redux Slices (Auth)
-    │   └── pages/          # Dashboards (Admin, Manager, User)
+    │   ├── api/            # Axios instance with proxy config
+    │   ├── components/     # Layout, Sidebar, Navbar, PrivateRoute
+    │   ├── features/       # Redux Slices (authSlice)
+    │   └── pages/          # Dedicated pages (Users, Projects, Tasks, Dashboards)
 ```
 
 ---
 
-*This project was built as part of the Full Stack MERN Intern Assessment.*
+*This project was completed as part of the Full Stack MERN Intern Assessment for **Blackbucks**.*
